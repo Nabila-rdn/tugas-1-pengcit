@@ -2,10 +2,8 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
-# === 1. Baca gambar ===
 img = Image.open(r"D:\TUGAS SEMESTER 3\PengCit\lee.jpg")
 
-# === 2. Deteksi jenis citra ===
 mode = img.mode
 if mode == "RGB":
     jenis = "Citra RGB (3 channel warna: Red, Green, Blue)"
@@ -21,22 +19,18 @@ print("Jenis citra   :", jenis)
 print("Resolusi      :", img.size[0], "x", img.size[1], "pixel (lebar x tinggi)")
 print("Jumlah pixel  :", img.size[0] * img.size[1])
 
-# === 3. Perkecil biar enak ditampilkan (opsional) ===
-new_size = (20, 20)  # atur ukuran grid visualisasi
+new_size = (20, 20)
 img_resized = img.resize(new_size)
 
-# === 4. Konversi ke array ===
 matrix = np.array(img_resized)
 
-# === 5. Visualisasi ===
 fig, ax = plt.subplots(figsize=(8, 8))
 ax.imshow(img_resized, cmap="gray" if mode != "RGB" else None)
 
-# Tambahkan angka di setiap kotak
 for i in range(matrix.shape[0]):
     for j in range(matrix.shape[1]):
         if mode == "RGB":
-            text = str(tuple(matrix[i, j]))  # (R,G,B)
+            text = str(tuple(matrix[i, j]))
             color = "white" if np.mean(matrix[i, j]) < 128 else "black"
         else:
             text = str(matrix[i, j])
@@ -47,3 +41,4 @@ for i in range(matrix.shape[0]):
 ax.set_title(f"Visualisasi Matriks Pixel ({jenis})")
 ax.axis("off")
 plt.show()
+
